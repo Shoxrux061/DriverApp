@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group>
+    <item android:id="@+id/homeID"
+        android:title="Home"
+        android:icon="@drawable/ic_home"/>
+    <item android:id="@+id/rideID"
+        android:title="Rides"
+        android:icon="@drawable/ic_rides"/>
+    <item android:id="@+id/profileID"
+        android:title="Profile"
+        android:icon="@drawable/ic_person"/>
+    <item android:id="@+id/logoutID"
+        android:title="SignOut"
+        android:icon="@drawable/ic_logout"/>
+    </group>
+</menu>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "252740744168",
+    "project_id": "driverapp-a766c",
+    "storage_bucket": "driverapp-a766c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252740744168:android:636f52d0f469fc46f9aa5d",
+        "android_client_info": {
+          "package_name": "uz.isystem.driverapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252740744168-rb940qfoc91374sioacvgcpv49n608er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVYUj7XcZNRA-uZvu9ebHsu2WKG8H5EnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "252740744168-rb940qfoc91374sioacvgcpv49n608er.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
