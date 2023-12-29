@@ -46,6 +46,7 @@ class MainScreen : BaseFragment(R.layout.screen_main) {
         binding.viewPager.isUserInputEnabled = false
         setDialog()
         setActions()
+        handleOnBackPressed()
     }
 
     private fun setProfileData() {
@@ -84,7 +85,6 @@ class MainScreen : BaseFragment(R.layout.screen_main) {
                 R.id.homeID -> {
                     binding.drawerLaout.close()
                     binding.viewPager.currentItem = 0
-                    onBackPressed()
                 }
 
                 R.id.rideID -> {
@@ -113,22 +113,14 @@ class MainScreen : BaseFragment(R.layout.screen_main) {
         dialog.setCancelable(false)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
-
-    private fun onBackPressed() {
+    private fun handleOnBackPressed(){
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (binding.viewPager.currentItem == 0) {
-                    activity?.moveTaskToBack(true)
+                if(binding.viewPager.currentItem == 0){
                     activity?.finish()
-                } else {
-                    binding.viewPager.currentItem = 0
                 }
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
-    }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding.viewPager.currentItem = 2
     }
 }
