@@ -2,6 +2,7 @@ package uz.isystem.driverapp.presentation.main.profile
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -23,7 +24,7 @@ class ProfilePage : BaseFragment(R.layout.page_profile) {
     private var vel: ValueEventListener? = null
     override fun onCreate(view: View, savedInstanceState: Bundle?) {
 
-        
+
 
         uid = FirebaseAuth.getInstance().uid.toString()
 
@@ -33,7 +34,7 @@ class ProfilePage : BaseFragment(R.layout.page_profile) {
         vel = dbr.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.getValue(UserProfile::class.java).let {
-                    val userName = "${it?.name} ${it?.lastName}"
+                    val userName = "${it?.name?:"User"} ${it?.lastName?:""}"
                     binding.emailAdress.text = it?.email
                     if(userName.isNotEmpty()) {
                         binding.userName.text = userName

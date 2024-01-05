@@ -74,7 +74,7 @@
         tools:layout="@layout/page_rides" />
     <fragment
         android:id="@+id/profileDetailScreen"
-        android:name="uz.isystem.driverapp.presentation.details.ProfileDetailScreen"
+        android:name="uz.isystem.driverapp.presentation.main.profile.details.ProfileDetailScreen"
         android:label="screen_profile_detail"
         tools:layout="@layout/screen_profile_detail" >
         <action
@@ -83,7 +83,7 @@
     </fragment>
     <fragment
         android:id="@+id/vehicleDetailsScreen"
-        android:name="uz.isystem.driverapp.presentation.details.VehicleDetailsScreen"
+        android:name="uz.isystem.driverapp.presentation.main.profile.details.VehicleDetailsScreen"
         android:label="screen_vehicle_details"
         tools:layout="@layout/screen_vehicle_details" >
         <action

@@ -1,11 +1,10 @@
-package uz.isystem.driverapp.presentation.details
+package uz.isystem.driverapp.presentation.main.profile.details
 
 
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -15,7 +14,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import uz.isystem.driverapp.R
-import uz.isystem.driverapp.data.models.user.UserProfile
 import uz.isystem.driverapp.data.models.user.VehicleDetails
 import uz.isystem.driverapp.databinding.ScreenVehicleDetailsBinding
 import uz.isystem.driverapp.presentation.base.BaseFragment
@@ -34,16 +32,6 @@ class VehicleDetailsScreen : BaseFragment(R.layout.screen_vehicle_details) {
         setNotEditable()
         setData()
         setActions()
-        onBackPressed()
-    }
-
-    private fun onBackPressed() {
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().navigate(VehicleDetailsScreenDirections.actionVehicleDetailsScreenToMainScreen(true))
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
     private fun setActions() {
@@ -72,7 +60,7 @@ class VehicleDetailsScreen : BaseFragment(R.layout.screen_vehicle_details) {
                     binding.brandEdt.setText(it?.brand)
                     binding.modelEdt.setText(it?.model)
                     binding.numberEdt.setText(it?.plateNum)
-                    binding.yearEdt.setText(it?.year.toString())
+                    binding.yearEdt.setText(it?.year)
                 }
             }
 

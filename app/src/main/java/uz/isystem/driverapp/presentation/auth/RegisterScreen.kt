@@ -61,9 +61,7 @@ class RegisterScreen : BaseFragment(R.layout.screen_register) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { result ->
             if (result.isSuccessful) {
                 val uid = auth.uid.toString()
-
                 val user = UserModel(uid = uid, password = password)
-
                 dbr.child(uid).setValue(user)
                 binding.progressBar.visibility = View.GONE
                 binding.createAccBtn.alpha = 1f
@@ -78,7 +76,8 @@ class RegisterScreen : BaseFragment(R.layout.screen_register) {
             }
         }
     }
-    private fun saveCache(password:String,email:String){
+
+    private fun saveCache(password: String, email: String) {
         cache.isSigned()
         cache.savePassword(password)
         cache.saveEmail(email)

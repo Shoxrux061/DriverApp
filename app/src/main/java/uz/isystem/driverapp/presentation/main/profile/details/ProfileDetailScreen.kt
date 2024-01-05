@@ -1,11 +1,10 @@
-package uz.isystem.driverapp.presentation.details
+package uz.isystem.driverapp.presentation.main.profile.details
 
 
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.firebase.auth.FirebaseAuth

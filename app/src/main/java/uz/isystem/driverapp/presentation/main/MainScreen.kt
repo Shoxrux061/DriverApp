@@ -5,7 +5,9 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -33,27 +35,54 @@ class MainScreen : BaseFragment(R.layout.screen_main) {
     private var dbr: DatabaseReference? = null
     private lateinit var uid: String
     private var vel: ValueEventListener? = null
+    private var doubleBackToExitPressedOnce = false
 
 
     override fun onCreate(view: View, savedInstanceState: Bundle?) {
         uid = FirebaseAuth.getInstance().uid.toString()
         dbr = FirebaseDatabase.getInstance().getReference("users").child(uid).child("profile_details")
         headerBinding = HeaderBinding.bind(binding.drawer.getHeaderView(0))
-        setProfileData()
-        val adapter = MainAdapter(childFragmentManager, lifecycle)
-        binding.viewPager.adapter = adapter
-        dialogBinding = CustomDialogBinding.inflate(layoutInflater)
         binding.viewPager.isUserInputEnabled = false
+        onBackPressed()
+        setProfileData()
+        setAdapter()
         setDialog()
         setActions()
-        handleOnBackPressed()
+    }
+
+    private fun onBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val currentItem = binding.viewPager.currentItem
+                if (currentItem > 0) {
+                    binding.viewPager.currentItem = 0
+                } else {
+                    if (doubleBackToExitPressedOnce) {
+                        requireActivity().finish()
+                        return
+                    }
+
+                    doubleBackToExitPressedOnce = true
+                    Toast.makeText(requireContext(), "Нажмите еще раз для выхода", Toast.LENGTH_SHORT).show()
+
+                    Handler().postDelayed({
+                        doubleBackToExitPressedOnce = false
+                    }, 2000)
+                }
+            }
+        })
+    }
+
+    private fun setAdapter() {
+        val adapter = MainAdapter(childFragmentManager, lifecycle)
+        binding.viewPager.adapter = adapter
     }
 
     private fun setProfileData() {
         vel = dbr!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.getValue(UserProfile::class.java).let {
-                    val userName = "${it!!.name} ${it.lastName}"
+                    val userName = "${it?.name?:"User"} ${it?.lastName?:""}"
                     headerBinding.profileName.text = userName
                 }
             }
@@ -107,20 +136,11 @@ class MainScreen : BaseFragment(R.layout.screen_main) {
     }
 
     private fun setDialog() {
+        dialogBinding = CustomDialogBinding.inflate(layoutInflater)
         dialog = Dialog(requireContext())
         dialog.setContentView(dialogBinding.root)
         dialog.window?.setLayout(LayoutParams.MATCH_PARENT - 1, 450)
         dialog.setCancelable(false)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-    }
-    private fun handleOnBackPressed(){
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if(binding.viewPager.currentItem == 0){
-                    activity?.finish()
-                }
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 }
